@@ -1,5 +1,5 @@
-import { AppDataSource } from '../../data-source';
-import { Day } from '../../entity/Day';
+import { AppDataSource } from '../data-source';
+import { Day } from '../entity/Day';
 
 const dayRepository = AppDataSource.getRepository(Day);
 

@@ -1,7 +1,13 @@
-import { AppDataSource } from '../../data-source';
-import { Activity } from '../../entity/Activity';
-import dayService from '../day/service';
-import { AddActivityDTO } from './model';
+import { AppDataSource } from '../data-source';
+import { Activity } from '../entity/Activity';
+import dayService from './day';
+
+export type AddActivityDTO = {
+  name: string;
+  from: Date;
+  to: Date;
+  date: Date;
+};
 
 const activityRepository = AppDataSource.getRepository(Activity);
 
