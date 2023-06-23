@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { User } from './entity/User';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -10,8 +9,8 @@ export const AppDataSource = new DataSource({
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
   synchronize: true,
-  logging: false,
-  entities: [User],
+  logging: true,
+  entities: ['src/entity/**/*.ts'],
   migrations: [],
   subscribers: [],
 });
