@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { validate } from 'class-validator';
-import activityService from '../service/activity';
+import activityService from '../services/activity';
 import { AddActivityDTO } from '../dto/activity';
 import { BadRequestError } from '../utils/errors/BadRequestError';
 import { UnknownError } from '../utils/errors/UnknownError';

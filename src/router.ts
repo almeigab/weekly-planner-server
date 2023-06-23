@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import activityController from './controller/activity';
-import dayController from './controller/day';
+import activityController from './controllers/activity';
+import dayController from './controllers/day';
 import errorMiddleware from './middlewares/error';
 
 const router = express.Router();

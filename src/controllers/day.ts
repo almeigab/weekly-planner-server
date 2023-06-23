@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { validate } from 'class-validator';
-import dayService from '../service/day';
+import dayService from '../services/day';
 import { UnknownError } from '../utils/errors/UnknownError';
 import { BadRequestError } from '../utils/errors/BadRequestError';
 import { GetDayDTO } from '../dto/day';
