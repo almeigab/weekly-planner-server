@@ -3,9 +3,16 @@ import { Day } from '../entity/Day';
 
 const dayRepository = AppDataSource.getRepository(Day);
 
-async function getDay({ date }: { date: Date }) {
-  return dayRepository.findOneBy({
-    date,
+async function getDay({
+  date,
+  fetchActivities = false,
+}: {
+  date: Date;
+  fetchActivities?: boolean;
+}) {
+  return dayRepository.findOne({
+    where: { date },
+    ...(fetchActivities ? { relations: ['activities'] } : null),
   });
 }
 
