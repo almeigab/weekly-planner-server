@@ -10,7 +10,7 @@ const port = process.env.PORT;
 app.use(morgan('tiny'));
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+  res.send('Express + TypeScript Server!');
 });
 
 app.listen(port, () => {
