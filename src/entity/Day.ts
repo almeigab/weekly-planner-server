@@ -2,10 +2,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
+  // ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Week } from './Week';
+// import { Week } from './Week';
 import { Activity } from './Activity';
 
 @Entity()
@@ -16,10 +16,10 @@ export class Day {
   @Column({ type: 'date' })
   date: Date;
 
-  @ManyToOne(() => Week, (week) => week.days, {
-    cascade: true,
-  })
-  week: Week;
+  // @ManyToOne(() => Week, (week) => week.days, {
+  //   cascade: true,
+  // })
+  // week: Week;
 
   @OneToMany(() => Activity, (activity) => activity.day)
   activities: Activity[];
