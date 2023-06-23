@@ -4,14 +4,21 @@ import activityService from '../service/activity';
 async function addActivityHandler(req: Request, res: Response) {
   const { name, from, to, date } = req.body;
 
-  const activity = await activityService.addActivity({
-    date,
-    from,
-    name,
-    to,
-  });
+  try {
+    const activity = await activityService.addActivity({
+      date,
+      from,
+      name,
+      to,
+    });
 
-  res.status(201).json(activity);
+    res.status(201).json(activity);
+  } catch (error: unknown) {
+    res.status(500).json({
+      message: error instanceof Error ? error.message : 'error',
+      error,
+    });
+  }
 }
 
 const activityController = {
