@@ -36,6 +36,8 @@ module.exports = {
         "tsx": "never"
       }
    ],
-   "import/prefer-default-export": "off"
+   "import/prefer-default-export": "off",
+   "no-param-reassign": [2, { "props": false }],
+   "max-classes-per-file": "off"
   },
 };
