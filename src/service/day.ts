@@ -3,13 +3,13 @@ import { Day } from '../entity/Day';
 
 const dayRepository = AppDataSource.getRepository(Day);
 
-async function getDay(date: Date) {
+async function getDay({ date }: { date: Date }) {
   return dayRepository.findOneBy({
     date,
   });
 }
 
-async function addDay(date: Date) {
+async function addDay({ date }: { date: Date }) {
   const day = new Day();
   day.date = date;
 

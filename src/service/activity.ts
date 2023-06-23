@@ -17,10 +17,12 @@ async function addActivity(addActivityDTO: AddActivityDTO) {
   activity.from = addActivityDTO.from;
   activity.to = addActivityDTO.to;
 
-  let day = await dayService.getDay(addActivityDTO.date);
+  const { date } = addActivityDTO;
+
+  let day = await dayService.getDay({ date });
 
   if (!day) {
-    day = await dayService.addDay(addActivityDTO.date);
+    day = await dayService.addDay({ date });
   }
 
   activity.day = day;
