@@ -15,7 +15,7 @@ export class Activity {
   @Column({ type: 'time' })
   to: Date;
 
-  @Column()
+  @Column({ default: false })
   checked: boolean;
 
   @ManyToOne(() => Day, (day) => day.activities, {
