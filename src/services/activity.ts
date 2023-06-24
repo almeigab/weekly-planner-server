@@ -1,7 +1,21 @@
-import { FindOptionsWhere } from 'typeorm';
+import { FindOptionsWhere, LessThan, MoreThan } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { AddActivityDTO, GetActivitiesDTO } from '../dto/activity';
 import { Activity } from '../entity/Activity';
+import { ActivityOverlapsError } from '../utils/errors/ActivityOverlapsError';
+
+async function isActivityOverlaped(activity: Activity) {
+  const overlapedActivitiesCount = await AppDataSource.getRepository(
+    Activity
+  ).countBy([
+    {
+      from: LessThan(activity.to),
+      to: MoreThan(activity.from),
+    },
+  ]);
+
+  return overlapedActivitiesCount > 0;
+}
 
 async function addActivity(addActivityDTO: AddActivityDTO) {
   const activity = new Activity();
@@ -11,6 +25,8 @@ async function addActivity(addActivityDTO: AddActivityDTO) {
   activity.to = new Date(addActivityDTO.to);
 
   if (addActivityDTO.label) activity.label = addActivityDTO.label;
+
+  if (await isActivityOverlaped(activity)) throw new ActivityOverlapsError();
 
   return AppDataSource.getRepository(Activity).save(activity, { reload: true });
 }

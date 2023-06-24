@@ -4,6 +4,7 @@ import activityService from '../services/activity';
 import { AddActivityDTO, GetActivitiesDTO } from '../dto/activity';
 import { BadRequestError } from '../utils/errors/BadRequestError';
 import { UnknownError } from '../utils/errors/UnknownError';
+import { ActivityOverlapsError } from '../utils/errors/ActivityOverlapsError';
 
 async function addActivityHandler(
   req: Request,
@@ -21,7 +22,7 @@ async function addActivityHandler(
 
     const errors = await validate(addActivityDTO);
     if (errors.length) {
-      next(new BadRequestError(errors));
+      next(new BadRequestError(null, errors));
       return;
     }
 
@@ -29,7 +30,11 @@ async function addActivityHandler(
 
     res.status(201).json(activity);
   } catch (error: unknown) {
-    next(new UnknownError(error));
+    if (error instanceof ActivityOverlapsError) {
+      next(new BadRequestError(error));
+    } else {
+      next(new UnknownError(error));
+    }
   }
 }
 
@@ -45,7 +50,7 @@ async function getActivitiesHandler(
 
     const errors = await validate(getActivitiesDTO);
     if (errors.length) {
-      next(new BadRequestError(errors));
+      next(new BadRequestError(null, errors));
       return;
     }
 
