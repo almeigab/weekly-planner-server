@@ -22,7 +22,6 @@ async function getActivities(getActivitiesDTO: GetActivitiesDTO) {
     where.weekDay = parseInt(getActivitiesDTO.weekDay, 10);
   }
 
-  console.log(where);
   return AppDataSource.getRepository(Activity).findBy(where);
 }
 
