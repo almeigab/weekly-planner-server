@@ -1,5 +1,4 @@
 import { ObjectLiteral, Repository } from 'typeorm';
-import { AssertionError } from 'assert';
 import { AppDataSource } from '../../src/data-source';
 import activityService from '../../src/services/activity';
 import { AddActivityDTO } from '../../src/dto/activity';
