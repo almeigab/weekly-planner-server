@@ -1,31 +1,35 @@
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 
 export class AddActivityDTO {
-  constructor(
-    name: string,
-    from: string | Date,
-    to: string | Date,
-    date: string | Date
-  ) {
+  constructor(name: string, weekDay: Number, from: string, to: string) {
     this.name = name;
-    this.from = new Date(from);
-    this.to = new Date(to);
-    this.date = new Date(date);
+    this.weekDay = weekDay;
+    this.from = from;
+    this.to = to;
   }
 
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsDate()
+  @Max(6)
+  @Min(0)
+  @IsInt()
   @IsNotEmpty()
-  from: Date;
+  weekDay: Number;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
-  to: Date;
+  from: string;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
-  date: Date;
+  to: string;
 }

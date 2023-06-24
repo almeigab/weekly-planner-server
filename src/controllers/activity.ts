@@ -13,9 +13,9 @@ async function addActivityHandler(
   try {
     const addActivityDTO = new AddActivityDTO(
       req.body.name,
+      req.body.weekDay,
       req.body.from,
-      req.body.to,
-      req.body.date
+      req.body.to
     );
 
     const errors = await validate(addActivityDTO);

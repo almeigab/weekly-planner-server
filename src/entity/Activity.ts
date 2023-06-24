@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Day } from './Day';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import {
   parseDateToTimeString,
   parseTimeStringToDate,
@@ -12,6 +11,9 @@ export class Activity {
 
   @Column()
   name: string;
+
+  @Column('int')
+  weekDay: Number;
 
   @Column({
     type: 'time',
@@ -33,9 +35,4 @@ export class Activity {
 
   @Column({ default: false })
   checked: boolean;
-
-  @ManyToOne(() => Day, (day) => day.activities, {
-    cascade: true,
-  })
-  day: Day;
 }
