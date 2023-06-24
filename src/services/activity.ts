@@ -10,6 +10,8 @@ async function addActivity(addActivityDTO: AddActivityDTO) {
   activity.from = new Date(addActivityDTO.from);
   activity.to = new Date(addActivityDTO.to);
 
+  if (addActivityDTO.label) activity.label = addActivityDTO.label;
+
   return AppDataSource.getRepository(Activity).save(activity, { reload: true });
 }
 
