@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { validate } from 'class-validator';
 import activityService from '../services/activity';
-import { AddActivityDTO } from '../dto/activity';
+import { AddActivityDTO, GetActivitiesDTO } from '../dto/activity';
 import { BadRequestError } from '../utils/errors/BadRequestError';
 import { UnknownError } from '../utils/errors/UnknownError';
 
@@ -32,8 +32,33 @@ async function addActivityHandler(
   }
 }
 
+async function getActivitiesHandler(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const weekDay = req.query.weekDay?.toString();
+
+    const getActivitiesDTO = new GetActivitiesDTO(weekDay);
+
+    const errors = await validate(getActivitiesDTO);
+    if (errors.length) {
+      next(new BadRequestError(errors));
+      return;
+    }
+
+    const activities = await activityService.getActivities(getActivitiesDTO);
+
+    res.status(200).json(activities);
+  } catch (error) {
+    next(new UnknownError(error));
+  }
+}
+
 const activityController = {
   addActivityHandler,
+  getActivitiesHandler,
 };
 
 export default activityController;

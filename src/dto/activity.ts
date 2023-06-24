@@ -2,13 +2,15 @@ import {
   IsDateString,
   IsInt,
   IsNotEmpty,
+  IsNumberString,
+  IsOptional,
   IsString,
   Max,
   Min,
 } from 'class-validator';
 
 export class AddActivityDTO {
-  constructor(name: string, weekDay: Number, from: string, to: string) {
+  constructor(name: string, weekDay: number, from: string, to: string) {
     this.name = name;
     this.weekDay = weekDay;
     this.from = from;
@@ -23,7 +25,7 @@ export class AddActivityDTO {
   @Min(0)
   @IsInt()
   @IsNotEmpty()
-  weekDay: Number;
+  weekDay: number;
 
   @IsDateString()
   @IsNotEmpty()
@@ -32,4 +34,14 @@ export class AddActivityDTO {
   @IsDateString()
   @IsNotEmpty()
   to: string;
+}
+
+export class GetActivitiesDTO {
+  constructor(weekDay?: string) {
+    this.weekDay = weekDay;
+  }
+
+  @IsNumberString()
+  @IsOptional()
+  weekDay?: string;
 }

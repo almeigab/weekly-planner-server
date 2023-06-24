@@ -21,7 +21,7 @@ export class Activity {
   name: string;
 
   @Column('int')
-  weekDay: Number;
+  weekDay: number;
 
   @Column({
     type: 'time',

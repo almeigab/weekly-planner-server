@@ -8,7 +8,8 @@ router.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server!');
 });
 
-router.post('/activity', activityController.addActivityHandler);
+router.post('/activities', activityController.addActivityHandler);
+router.get('/activities', activityController.getActivitiesHandler);
 
 router.use(errorMiddleware);
 export default router;
