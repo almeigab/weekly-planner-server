@@ -11,11 +11,12 @@ async function addActivityHandler(
   next: NextFunction
 ) {
   try {
-    const addActivityDTO = new AddActivityDTO();
-    addActivityDTO.name = req.body.name;
-    addActivityDTO.from = req.body.from;
-    addActivityDTO.to = req.body.to;
-    addActivityDTO.date = req.body.date;
+    const addActivityDTO = new AddActivityDTO(
+      req.body.name,
+      req.body.from,
+      req.body.to,
+      req.body.date
+    );
 
     const errors = await validate(addActivityDTO);
     if (errors.length) {

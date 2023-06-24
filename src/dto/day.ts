@@ -1,16 +1,21 @@
-import { IsString, IsNotEmpty, Validate } from 'class-validator';
-import { IsDateWithoutTime } from '../utils/validators/IsDateWithoutTime';
+import { IsNotEmpty, IsDate } from 'class-validator';
 
 export class GetDayDTO {
-  @IsString()
+  constructor(date: string | Date) {
+    this.date = new Date(date);
+  }
+
+  @IsDate()
   @IsNotEmpty()
-  @Validate(IsDateWithoutTime)
-  date: string;
+  date: Date;
 }
 
 export class AddDayDTO {
-  @IsString()
+  constructor(date: string | Date) {
+    this.date = new Date(date);
+  }
+
+  @IsDate()
   @IsNotEmpty()
-  @Validate(IsDateWithoutTime)
-  date: string;
+  date: Date;
 }

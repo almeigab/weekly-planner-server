@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { BadRequestError } from '../utils/errors/BadRequestError';
 import { UnknownError } from '../utils/errors/UnknownError';
+import { NotFoundError } from '../utils/errors/NotFoundError';
 
 export default function errorMiddleware(
   err: Error,
@@ -10,14 +11,19 @@ export default function errorMiddleware(
   next: NextFunction
 ) {
   if (err instanceof BadRequestError) {
-    res.status(404).json({
+    res.status(400).json({
       error:
         Object.values(err.causes?.[0].constraints || {})?.[0] || err.message,
     });
-  }
-  if (err instanceof UnknownError) {
+  } else if (err instanceof UnknownError) {
     res.status(500).json({
       error: err.message,
     });
+  } else if (err instanceof NotFoundError) {
+    res.status(404).json({
+      error: err.message,
+    });
+  } else {
+    res.status(500).end();
   }
 }

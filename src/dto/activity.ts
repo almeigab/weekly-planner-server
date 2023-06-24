@@ -1,24 +1,31 @@
-import { IsString, IsNotEmpty, Validate } from 'class-validator';
-import { IsDateWithoutTime } from '../utils/validators/IsDateWithoutTime';
-import { IsTime } from '../utils/validators/IsTime';
+import { IsDate, IsNotEmpty, IsString } from 'class-validator';
 
 export class AddActivityDTO {
+  constructor(
+    name: string,
+    from: string | Date,
+    to: string | Date,
+    date: string | Date
+  ) {
+    this.name = name;
+    this.from = new Date(from);
+    this.to = new Date(to);
+    this.date = new Date(date);
+  }
+
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsString()
+  @IsDate()
   @IsNotEmpty()
-  @Validate(IsTime)
-  from: string;
+  from: Date;
 
-  @IsString()
+  @IsDate()
   @IsNotEmpty()
-  @Validate(IsTime)
-  to: string;
+  to: Date;
 
-  @IsString()
+  @IsDate()
   @IsNotEmpty()
-  @Validate(IsDateWithoutTime)
-  date: string;
+  date: Date;
 }

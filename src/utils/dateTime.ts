@@ -1,16 +1,15 @@
-function getDateFromTime(time: string) {
-  return new Date(`${new Date().toISOString().split('T')[0]}T${time}Z`);
+export function parseDateStringToDate(date: string) {
+  return new Date(`${date}T00:00:00Z`);
 }
 
-function getDateFromDateWithoutTime(dateWithoutTime: string) {
-  return new Date(
-    `${dateWithoutTime}T${new Date().toISOString().split('T')[1]}`
-  );
+export function parseTimeStringToDate(time: string) {
+  return new Date(`0001-01-01T${time}Z`);
 }
 
-const dateTimeUtils = {
-  getDateFromTime,
-  getDateFromDateWithoutTime,
-};
+export function parseDateToDateString(date: Date) {
+  return date.toISOString().split('T')[0];
+}
 
-export default dateTimeUtils;
+export function parseDateToTimeString(date: Date) {
+  return date.toISOString().split('T')[1].split('Z')[0].split('.')[0];
+}
