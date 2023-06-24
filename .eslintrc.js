@@ -36,9 +36,13 @@ module.exports = {
         "ts": "never",
         "tsx": "never"
       }
-   ],
-   "import/prefer-default-export": "off",
-   "no-param-reassign": [2, { "props": false }],
-   "max-classes-per-file": "off"
+    ],
+    "import/prefer-default-export": "off",
+    "no-param-reassign": [2, { "props": false }],
+    "max-classes-per-file": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error",
   },
 };
