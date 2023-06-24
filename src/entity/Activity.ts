@@ -4,6 +4,14 @@ import {
   parseTimeStringToDate,
 } from '../utils/dateTime';
 
+export enum ActivityLabel {
+  BLANK = 0,
+  TASK,
+  LEISURE,
+  WORK,
+  STUDY,
+}
+
 @Entity()
 export class Activity {
   @PrimaryGeneratedColumn()
@@ -35,4 +43,11 @@ export class Activity {
 
   @Column({ default: false })
   checked: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: ActivityLabel,
+    default: ActivityLabel.BLANK,
+  })
+  label: ActivityLabel;
 }
