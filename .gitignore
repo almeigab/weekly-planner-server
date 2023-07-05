@@ -15,3 +15,6 @@ tmp
 # Jest coverage files
 coverage/*
 !coverage/*.svg
+
+#sqlite
+data/*.db

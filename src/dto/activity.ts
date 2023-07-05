@@ -1,6 +1,5 @@
 import {
   IsDateString,
-  IsEnum,
   IsInt,
   IsNotEmpty,
   IsNumberString,
@@ -9,7 +8,6 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { ActivityLabel } from '../entity/Activity';
 
 export class AddActivityDTO {
   constructor(
@@ -44,7 +42,7 @@ export class AddActivityDTO {
   @IsNotEmpty()
   to: string;
 
-  @IsEnum(ActivityLabel)
+  @IsInt()
   @IsOptional()
   label: number;
 }

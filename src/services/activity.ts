@@ -3,6 +3,7 @@ import { AppDataSource } from '../data-source';
 import { AddActivityDTO, GetActivitiesDTO } from '../dto/activity';
 import { Activity } from '../entity/Activity';
 import { ActivityOverlapsError } from '../utils/errors/ActivityOverlapsError';
+import { ActivityLabel } from '../entity/ActivityLabel';
 
 async function isActivityOverlaped(activity: Activity) {
   const overlapedActivitiesCount = await AppDataSource.getRepository(
@@ -24,7 +25,11 @@ async function addActivity(addActivityDTO: AddActivityDTO) {
   activity.from = new Date(addActivityDTO.from);
   activity.to = new Date(addActivityDTO.to);
 
-  if (addActivityDTO.label) activity.label = addActivityDTO.label;
+  if (addActivityDTO.label) {
+    const activityLabel = new ActivityLabel();
+    activityLabel.id = addActivityDTO.label;
+    activity.label = activityLabel;
+  }
 
   if (await isActivityOverlaped(activity)) throw new ActivityOverlapsError();
 
@@ -41,9 +46,14 @@ async function getActivities(getActivitiesDTO: GetActivitiesDTO) {
   return AppDataSource.getRepository(Activity).findBy(where);
 }
 
+async function getActivityLabels() {
+  return ActivityLabel;
+}
+
 const activityService = {
   addActivity,
   getActivities,
+  getActivityLabels,
 };
 
 export default activityService;

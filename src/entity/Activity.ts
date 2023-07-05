@@ -1,16 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import {
   parseDateToTimeString,
   parseTimeStringToDate,
 } from '../utils/dateTime';
-
-export enum ActivityLabel {
-  BLANK = 0,
-  TASK,
-  LEISURE,
-  WORK,
-  STUDY,
-}
+import { ActivityLabel } from './ActivityLabel';
 
 @Entity()
 export class Activity {
@@ -44,10 +37,6 @@ export class Activity {
   @Column({ default: false })
   checked: boolean;
 
-  @Column({
-    type: 'enum',
-    enum: ActivityLabel,
-    default: ActivityLabel.BLANK,
-  })
+  @ManyToOne(() => ActivityLabel, (activityLabel) => activityLabel.activities)
   label: ActivityLabel;
 }
