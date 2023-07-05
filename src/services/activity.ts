@@ -46,14 +46,9 @@ async function getActivities(getActivitiesDTO: GetActivitiesDTO) {
   return AppDataSource.getRepository(Activity).findBy(where);
 }
 
-async function getActivityLabels() {
-  return ActivityLabel;
-}
-
 const activityService = {
   addActivity,
   getActivities,
-  getActivityLabels,
 };
 
 export default activityService;
